@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript 基础知识练习</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+        }
+        h2 {
+            color: #34495e;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 8px;
+        }
+        .section {
+            background: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .output {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 12px;
+            border-radius: 4px;
+            font-family: Consolas, Monaco, monospace;
+            font-size: 14px;
+            white-space: pre-wrap;
+            margin-top: 10px;
+            min-height: 30px;
+        }
+        button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+        button:hover {
+            background: #2980b9;
+        }
+        code {
+            background: #ecf0f1;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: Consolas, Monaco, monospace;
+            color: #c0392b;
+        }
+    </style>
+</head>
+<body>
+    <h1>JavaScript 基础知识练习</h1>
+
+    <div class="section">
+        <h2>一、变量的定义</h2>
+        <p>JavaScript 中有三种声明变量的方式：<code>var</code>、<code>let</code>、<code>const</code>。</p>
+        <button onclick="practiceVariables()">运行变量练习</button>
+        <div class="output" id="output-variables"></div>
+    </div>
+
+    <div class="section">
+        <h2>二、变量类型</h2>
+        <p>JavaScript 是动态类型语言，常见类型包括：Number、String、Boolean、Null、Undefined、Object、Symbol、BigInt。</p>
+        <button onclick="practiceTypes()">运行类型练习</button>
+        <div class="output" id="output-types"></div>
+    </div>
+
+    <div class="section">
+        <h2>三、表达式与运算符</h2>
+        <p>表达式是由操作数和运算符组成的代码片段，包括算术表达式、比较表达式、逻辑表达式等。</p>
+        <button onclick="practiceExpressions()">运行表达式练习</button>
+        <div class="output" id="output-expressions"></div>
+    </div>
+
+    <div class="section">
+        <h2>四、流程控制</h2>
+        <p>流程控制包括条件语句（<code>if...else</code>、<code>switch</code>）和循环语句（<code>for</code>、<code>while</code>）。</p>
+        <button onclick="practiceControlFlow()">运行流程控制练习</button>
+        <div class="output" id="output-control"></div>
+    </div>
+
+    <div class="section">
+        <h2>五、函数</h2>
+        <p>函数是执行特定任务的代码块。定义方式包括：函数声明、函数表达式、箭头函数。</p>
+        <button onclick="practiceFunctions()">运行函数练习</button>
+        <div class="output" id="output-functions"></div>
+    </div>
+
+    <script>
+        // 辅助函数：输出内容到指定区域
+        function print(id, message) {
+            document.getElementById(id).textContent = message;
+        }
+
+        // ==================== 一、变量的定义 ====================
+        function practiceVariables() {
+            let result = "=== 变量定义练习 ===\n";
+
+            // var 声明的变量可以重复声明，且存在变量提升
+            var name = "Alice";
+            var name = "Bob";  // 不会报错
+            result += "var name: " + name + "\n";
+
+            // let 声明的块级作用域变量
+            let age = 20;
+            // let age = 21; // 会报错：重复声明
+            result += "let age: " + age + "\n";
+
+            // const 声明常量，必须初始化，且不能重新赋值
+            const PI = 3.14159;
+            // PI = 3.14; // 会报错
+            result += "const PI: " + PI + "\n";
+
+            // 块级作用域示例
+            if (true) {
+                var globalScope = "我在函数级作用域";
+                let blockScope = "我在块级作用域";
+            }
+            result += "var 在块外可访问: " + globalScope + "\n";
+            // result += blockScope; // ReferenceError
+
+            print("output-variables", result);
+        }
+
+        // ==================== 二、变量类型 ====================
+        function practiceTypes() {
+            let result = "=== 变量类型练习 ===\n";
+
+            let num = 42;
+            let str = "Hello JS";
+            let bool = true;
+            let nothing = null;
+            let notDefined;
+            let obj = { name: "Tom", score: 90 };
+            let sym = Symbol("id");
+            let big = 9007199254740991n;
+
+            result += "num 的类型: " + typeof num + " (值: " + num + ")\n";
+            result += "str 的类型: " + typeof str + " (值: " + str + ")\n";
+            result += "bool 的类型: " + typeof bool + " (值: " + bool + ")\n";
+            result += "nothing 的类型: " + typeof nothing + " (注意：null 的 typeof 是 object)\n";
+            result += "notDefined 的类型: " + typeof notDefined + "\n";
+            result += "obj 的类型: " + typeof obj + " (值: " + JSON.stringify(obj) + ")\n";
+            result += "sym 的类型: " + typeof sym + "\n";
+            result += "big 的类型: " + typeof big + " (值: " + big + ")\n";
+
+            // 类型转换
+            result += "\n--- 类型转换 ---\n";
+            result += "Number('123'): " + Number("123") + "\n";
+            result += "String(456): " + String(456) + "\n";
+            result += "Boolean(0): " + Boolean(0) + "\n";
+            result += "Boolean('hello'): " + Boolean("hello") + "\n";
+
+            print("output-types", result);
+        }
+
+        // ==================== 三、表达式与运算符 ====================
+        function practiceExpressions() {
+            let result = "=== 表达式与运算符练习 ===\n";
+
+            let a = 10;
+            let b = 3;
+
+            // 算术表达式
+            result += "a = " + a + ", b = " + b + "\n";
+            result += "a + b = " + (a + b) + "\n";
+            result += "a - b = " + (a - b) + "\n";
+            result += "a * b = " + (a * b) + "\n";
+            result += "a / b = " + (a / b) + "\n";
+            result += "a % b = " + (a % b) + "\n";
+            result += "a ** b = " + (a ** b) + "\n";
+
+            // 比较表达式
+            result += "\n--- 比较运算 ---\n";
+            result += "a == '10': " + (a == '10') + " (松散相等)\n";
+            result += "a === '10': " + (a === '10') + " (严格相等)\n";
+            result += "a > b: " + (a > b) + "\n";
+            result += "a !== b: " + (a !== b) + "\n";
+
+            // 逻辑表达式
+            result += "\n--- 逻辑运算 ---\n";
+            let x = true;
+            let y = false;
+            result += "x && y: " + (x && y) + "\n";
+            result += "x || y: " + (x || y) + "\n";
+            result += "!x: " + (!x) + "\n";
+
+            // 赋值与自增
+            result += "\n--- 赋值与自增 ---\n";
+            let c = 5;
+            c += 3;
+            result += "c += 3 后 c = " + c + "\n";
+            let d = c++;
+            result += "d = c++ 后 d = " + d + ", c = " + c + "\n";
+
+            print("output-expressions", result);
+        }
+
+        // ==================== 四、流程控制 ====================
+        function practiceControlFlow() {
+            let result = "=== 流程控制练习 ===\n";
+
+            // if...else
+            let score = 85;
+            result += "score = " + score + "\n";
+            if (score >= 90) {
+                result += "等级: A (优秀)\n";
+            } else if (score >= 80) {
+                result += "等级: B (良好)\n";
+            } else if (score >= 60) {
+                result += "等级: C (及格)\n";
+            } else {
+                result += "等级: D (不及格)\n";
+            }
+
+            // switch
+            let day = 3;
+            result += "\n--- switch 语句 (day = " + day + ") ---\n";
+            switch (day) {
+                case 1: result += "星期一\n"; break;
+                case 2: result += "星期二\n"; break;
+                case 3: result += "星期三\n"; break;
+                case 4: result += "星期四\n"; break;
+                case 5: result += "星期五\n"; break;
+                default: result += "周末\n";
+            }
+
+            // for 循环
+            result += "\n--- for 循环 (1 到 5) ---\n";
+            let sum = 0;
+            for (let i = 1; i <= 5; i++) {
+                sum += i;
+                result += "i = " + i + ", 当前 sum = " + sum + "\n";
+            }
+
+            // while 循环
+            result += "\n--- while 循环 ( countdown ) ---\n";
+            let countdown = 3;
+            while (countdown > 0) {
+                result += countdown + "... ";
+                countdown--;
+            }
+            result += "发射!\n";
+
+            // break 和 continue
+            result += "\n--- break / continue ---\n";
+            result += "1-10 中跳过 3 的倍数，遇到 8 停止:\n";
+            for (let i = 1; i <= 10; i++) {
+                if (i % 3 === 0) continue;
+                if (i === 8) break;
+                result += i + " ";
+            }
+            result += "\n";
+
+            print("output-control", result);
+        }
+
+        // ==================== 五、函数 ====================
+        function practiceFunctions() {
+            let result = "=== 函数练习 ===\n";
+
+            // 1. 函数声明
+            function greet(name) {
+                return "你好, " + name + "!";
+            }
+            result += "【函数声明】" + greet("小明") + "\n";
+
+            // 2. 函数表达式
+            const add = function(a, b) {
+                return a + b;
+            };
+            result += "【函数表达式】add(3, 5) = " + add(3, 5) + "\n";
+
+            // 3. 箭头函数
+            const multiply = (a, b) => a * b;
+            result += "【箭头函数】multiply(4, 7) = " + multiply(4, 7) + "\n";
+
+            // 4. 默认参数
+            function greetWithTime(name, time = "早上") {
+                return time + "好, " + name + "!";
+            }
+            result += "【默认参数】" + greetWithTime("小红") + "\n";
+            result += "【默认参数】" + greetWithTime("小红", "晚上") + "\n";
+
+            // 5. 剩余参数
+            function sumAll(...numbers) {
+                let total = 0;
+                for (let n of numbers) {
+                    total += n;
+                }
+                return total;
+            }
+            result += "【剩余参数】sumAll(1, 2, 3, 4) = " + sumAll(1, 2, 3, 4) + "\n";
+
+            // 6. 作用域与闭包
+            result += "\n--- 闭包示例 ---\n";
+            function createCounter() {
+                let count = 0;
+                return function() {
+                    count++;
+                    return count;
+                };
+            }
+            const counter = createCounter();
+            result += "counter() = " + counter() + "\n";
+            result += "counter() = " + counter() + "\n";
+            result += "counter() = " + counter() + "\n";
+
+            // 7. 回调函数
+            result += "\n--- 回调函数示例 ---\n";
+            function processNumber(num, callback) {
+                return callback(num);
+            }
+            let squared = processNumber(5, function(n) {
+                return n * n;
+            });
+            result += "processNumber(5, square) = " + squared + "\n";
+
+            // 8. 立即执行函数 (IIFE)
+            result += "\n--- IIFE ---\n";
+            let iifeResult = (function() {
+                return "我立即执行了！";
+            })();
+            result += iifeResult + "\n";
+
+            print("output-functions", result);
+        }
+    </script>
+</body>
+</html>
